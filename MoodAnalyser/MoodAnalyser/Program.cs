@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoodAnalyser;
+using System;
 
 namespace MoodAnalyserTesting
 {
@@ -17,9 +18,12 @@ namespace MoodAnalyserTesting
         {
             try
             {
-                if (Message.Contains("SAD"))
+                if (Message.Equals(string.Empty))
+                    throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.EMPTY_MOOD, "Mood should not be Empty");
+                else if (this.Message.Contains("SAD"))
                     return "SAD";
-                else return "HAPPY";
+                else
+                    return "HAPPY";
             }
             catch (NullReferenceException)
             {

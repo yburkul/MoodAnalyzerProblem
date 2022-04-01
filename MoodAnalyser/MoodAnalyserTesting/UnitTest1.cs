@@ -1,3 +1,4 @@
+using MoodAnalyser;
 using NUnit.Framework;
 
 namespace MoodAnalyserTesting
@@ -44,6 +45,40 @@ namespace MoodAnalyserTesting
             string message = moodAnalyser.AnalyserMood();
             //Assert
             Assert.AreEqual("HAPPY", message);
+        }
+
+        /// TC 3.1 Given Null Mood Should ThrowMoodAnalysisException
+        [Test]
+        public void GivenMessage_WhenNull_CustomException()
+        {
+            string message = null;
+            string expected = "Mood should not be Null";
+            try
+            {
+                //Act
+                moodAnalyser = new MoodAnalyser(message);
+            }
+            catch (MoodAnalyserCustomException exception)
+            {
+                Assert.AreEqual(expected, exception.Message);
+            }
+        }
+
+        // TC-3.2 Given EMPTY Mood Should Throw MoodAnalysisException
+        [Test]
+        public void GivenMessage_WhenEmpty_CustomException()
+        {
+            string message = " ";
+            string expected = "Mood should not be Empty";
+            try
+            {
+                //Act
+                moodAnalyser = new MoodAnalyser(message);
+            }
+            catch (MoodAnalyserCustomException exception)
+            {
+                Assert.AreEqual(expected, exception.Message);
+            }
         }
     }
 }
