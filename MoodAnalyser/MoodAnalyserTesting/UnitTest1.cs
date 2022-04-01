@@ -34,5 +34,16 @@ namespace MoodAnalyserTesting
             //Assert
             Assert.AreEqual("HAPPY", message);
         }
+
+        // TC-2.1 Given Null Mood Should Return Happy
+        [Test]
+        public void GivenMessage_WhenNull_ShouldReturnHappy()
+        {
+            moodAnalyser = new MoodAnalyser();
+            //Act
+            string message = moodAnalyser.AnalyserMood();
+            //Assert
+            Assert.AreEqual("HAPPY", message);
+        }
     }
 }
