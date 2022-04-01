@@ -8,14 +8,19 @@ namespace MoodAnalyserTesting
         [SetUp]
         public void Setup()
         {
-            moodAnalyser = new MoodAnalyser();
+            string result = "";
+            //Arrange
+            moodAnalyser = new MoodAnalyser(result);
         }
 
         // TC-1.1 Given "I am in Sad mood" message should return SAD
         [Test]
         public void GivenMassage_When_ShouldReturnSad()
         {
-            string message = moodAnalyser.AnalyserMood("I am in SAD Mood");
+            moodAnalyser = new MoodAnalyser("I am in SAD Mood");
+            //Act
+            string message = moodAnalyser.AnalyserMood();
+            //Asser
             Assert.AreEqual("SAD", message);
         }
 
@@ -23,7 +28,10 @@ namespace MoodAnalyserTesting
         [Test]
         public void GivenMassage_When_ShouldReturnHappy()
         {
-            string message = moodAnalyser.AnalyserMood("I am in Any Mood");
+            moodAnalyser = new MoodAnalyser("I am in ANY Mood");
+            //Act
+            string message = moodAnalyser.AnalyserMood();
+            //Assert
             Assert.AreEqual("HAPPY", message);
         }
     }
