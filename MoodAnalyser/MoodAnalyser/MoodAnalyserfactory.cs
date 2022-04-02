@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using MoodAnalysers;
+using MoodAnalyserSpace;
 
-namespace MoodAnalysers
+namespace MoodAnalyserTesting
 {
     public class MoodAnalyserfactory
     {
@@ -12,6 +14,7 @@ namespace MoodAnalysers
         {
             string pattern = @"." + constructorName + "$";
             Match result = Regex.Match(className, pattern);
+            //Computation
             if(result.Success)
             {
                 try
@@ -28,6 +31,28 @@ namespace MoodAnalysers
             else
             {
                 throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
+            }
+        }
+        public static object CreateMoodAnalyserWithParameterisedConstructor(string className, string constructorName)
+        {
+            Type type = typeof(MoodAnalyser);
+            if (type.FullName.Equals(className) || type.Name.Equals(className))
+            {
+                if (type.Name.Equals(constructorName))
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(string) });
+                    object obj = constructorInfo.Invoke(new[] { "Happy" });
+                    return obj;
+                }
+                else
+                {
+                    throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
+                }
+            }
+            else
+            {
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+
             }
         }
 
