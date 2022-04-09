@@ -29,13 +29,11 @@ namespace MoodAnalyserSpace
                 }
                 else
                 {
-                   /// throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NULL_MESSAGE, "Mood should not be Null");
                     return "HAPPY";
                 }
             }
             catch (NullReferenceException)
             {
-               /// throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NULL_MESSAGE, "Mood should not be Null");
                 return "HAPPY";
             }
         }
