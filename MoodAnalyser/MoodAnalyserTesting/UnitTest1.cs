@@ -16,7 +16,6 @@ namespace MoodAnalyserTesting
             moodAnalyser = new MoodAnalyser(result);
             moodAnalyserfactory = new MoodAnalyserfactory();
         }
-
         ///<summary>
         /// TC-1.1 Given "I am in Sad mood" message should return SAD
         /// </summary>
@@ -29,7 +28,6 @@ namespace MoodAnalyserTesting
             //Assert
             Assert.AreEqual("SAD", message);
         }
-
         ///<summary>
         /// TC-1.2 Given "I am in Any mood" message should return HAPPY
         ///</summary>
@@ -42,7 +40,6 @@ namespace MoodAnalyserTesting
             //Assert
             Assert.AreEqual("HAPPY", message);
         }
-
         ///<summary>
         /// TC-2.1 Given Null Mood Should Return Happy
         /// </summary>
@@ -55,7 +52,6 @@ namespace MoodAnalyserTesting
             //Assert
             Assert.AreEqual("HAPPY", message);
         }
-
         ///<summary>
         /// TC 3.1 Given Null Mood Should ThrowMoodAnalysisException
         /// </summary>
@@ -74,7 +70,6 @@ namespace MoodAnalyserTesting
                 Assert.AreEqual(expected, exception.Message);
             }
         }
-
         /// <summary>
         /// TC-3.2 Given EMPTY Mood Should Throw MoodAnalysisException
         /// </summary>
@@ -93,7 +88,6 @@ namespace MoodAnalyserTesting
                 Assert.AreEqual(expected, exception.Message);
             }
         }
-
         /// <summary>
         /// TC-4.1 Given MoodAnalyser Class Name Should Return MoodAnalyser Object
         /// </summary>
@@ -104,7 +98,6 @@ namespace MoodAnalyserTesting
             object obj = MoodAnalyserfactory.CreateMoodAnalyse("MoodAnalyserSpace.MoodAnalyser", "MoodAnalyser");
             expected.Equals(obj);
         }
-
         /// <summary>
         /// TC-4.2 Given Class Name When Improper Should Throw MoodAnalysisException
         /// </summary>
@@ -121,7 +114,6 @@ namespace MoodAnalyserTesting
                 Assert.AreEqual(expected, exception.Message);
             }
         }
-
         /// <summary>
         /// TC-4.3 Given Class When Improper Constructor name Should Throw MoodAnalysisException
         /// </summary>
@@ -139,7 +131,6 @@ namespace MoodAnalyserTesting
                 Assert.AreEqual(expected, exception.Message);
             }
         }
-
         /// <summary>
         /// TC 5.1 - Given MoodAnalyser When Proper Return MoodAnalyser Object
         /// </summary>
@@ -150,7 +141,6 @@ namespace MoodAnalyserTesting
             object obj = MoodAnalyserfactory.CreateMoodAnalyserWithParameterisedConstructor("MoodAnalyser", "MoodAnalyser");
             expected.Equals(obj);
         }
-
         /// <summary>
         /// TC 5.2 - Given Class Name When Improper Should Throw MoodAnalysisException
         /// </summary>
@@ -167,7 +157,6 @@ namespace MoodAnalyserTesting
                 Assert.AreEqual(expected, exception.Message);
             }
         }
-
         /// <summary>
         /// TC 5.3 - Given Class When Constructor Not Proper Should Throw MoodAnalysisException
         /// </summary>
@@ -187,7 +176,6 @@ namespace MoodAnalyserTesting
         /// <summary>
         /// TC-6.1  Given Happy Message Using Reflection When Proper Should Return HAPPY Mood
         /// </summary>
-
         [Test]
         public void GivenHappyMessage_Proper_ShouldReturnHappy()
         {
@@ -198,7 +186,6 @@ namespace MoodAnalyserTesting
         /// <summary>
         /// TC- 6.2 Given Happy Message When Improper Method Should Throw MoodAnalysis Exception
         /// </summary>
-
         [Test]
         public void GivenHappyMessage_WhenImproperMethod_Should_ThrowException()
         {
@@ -206,6 +193,47 @@ namespace MoodAnalyserTesting
             try
             {
                 string mood = MoodAnalyserfactory.InvokeAnalyseMood("Happy", "Analyser");
+            }
+            catch(MoodAnalyserCustomException exception)
+            {
+                Assert.AreEqual(expected, exception.Message);
+            }
+        }
+        /// <summary>
+        /// TC 7.1 -Set Happy Message with Reflector Should Return HAPPY
+        /// </summary>
+        [Test]
+        public void Given_HappyMessage_With_Reflector_Should_ReturnHappy()
+        {
+            string result = MoodAnalyserfactory.SetField("Happy", "message");
+            Assert.AreEqual("Happy", result);
+        }
+        /// <summary>
+        /// TC 7.2 - Set Field When Improper Should Throw Exception with No Such Field
+        /// </summary>
+        [Test]
+        public void GivenHappyMessage_WhenImproperField_Should_ThrowException()
+        {
+            string expected = "Field is not found";
+            try
+            {
+                string result = MoodAnalyserfactory.SetField("Happy", "messsage");
+            }
+            catch (MoodAnalyserCustomException exception)
+            {
+                Assert.AreEqual(expected, exception.Message);
+            }
+        }
+        /// <summary>
+        /// TC 7.3 - Given Null Message Should Throws the Exception
+        /// </summary>
+        [Test]
+        public void GivenNullMessage_Should_ThrowsException()
+        {
+            string expected = "Message should not be null";
+            try
+            {
+                string result = MoodAnalyserfactory.SetField("", "message");
             }
             catch(MoodAnalyserCustomException exception)
             {

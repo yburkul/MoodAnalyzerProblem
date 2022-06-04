@@ -5,7 +5,7 @@ namespace MoodAnalyserSpace
 {
     public class MoodAnalyser
     {
-        private string message;
+        public string message;
         public MoodAnalyser()
         {
 
@@ -14,7 +14,6 @@ namespace MoodAnalyserSpace
         {
             this.message = message;
         }
-
         public string AnalyserMood()
         {
             try

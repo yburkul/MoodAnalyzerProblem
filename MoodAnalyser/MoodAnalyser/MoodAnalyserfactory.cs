@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using MoodAnalysers;
 using MoodAnalyserSpace;
 
-namespace MoodAnalyserTesting
+namespace MoodAnalyserSpace
 {
     public class MoodAnalyserfactory
     {
@@ -68,6 +68,26 @@ namespace MoodAnalyserTesting
             catch(NullReferenceException)
             {
                 throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_CONSTRUCTOR, "Constructor not found");
+            }
+        }
+
+        public static string SetField(string message, string fieldName)
+        {
+            try
+            {
+                MoodAnalyser  moodAnalyser = new MoodAnalyser();
+                Type type = typeof(MoodAnalyser);
+                FieldInfo field = type.GetField(fieldName);
+                if(message == null)
+                {
+                    throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_FIELD, "Message should not be null");
+                }
+                field.SetValue(moodAnalyser, message);
+                return moodAnalyser.message;
+            }
+            catch(NullReferenceException)
+            {
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_FIELD, "Field is not found");
             }
         }
     }
